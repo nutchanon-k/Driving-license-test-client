@@ -5,7 +5,7 @@ import axios from 'axios';
 const TestResultForm = ({ fetchTestResults }) => {
     const [users, setUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState('');
-    const [testResult, setTestResult] = useState(null); // เพิ่ม state สำหรับ TestResult
+    const [testResult, setTestResult] = useState(null); 
     const [physical, setPhysical] = useState({
         colorBlindTest: false,
         visionLongTest: false,
@@ -110,6 +110,15 @@ const TestResultForm = ({ fetchTestResults }) => {
           },
         });
         setSuccess('อัปเดตผลการทดสอบเรียบร้อยแล้ว');
+        setPhysical({
+            colorBlindTest: false,
+            visionLongTest: false,
+            visionTiltTest: false,
+            reflexResponseTest: false,
+            trafficSign: 0,
+            trafficLine: 0,
+            rightOfWay: 0,
+          });
       } else {
         // สร้าง TestResult ใหม่ (กรณีไม่มี)
         await axios.post('http://localhost:8000/api/testresults', {
@@ -132,7 +141,7 @@ const TestResultForm = ({ fetchTestResults }) => {
         setSuccess('เพิ่มผลการทดสอบเรียบร้อยแล้ว');
       }
 
-      // รีเซ็ตฟอร์ม
+      
       setSelectedUser('');
       setTestResult(null);
       setPhysical({
@@ -146,7 +155,7 @@ const TestResultForm = ({ fetchTestResults }) => {
       });
       setPracticalPassed(false);
       setError('');
-      // รีเฟรชข้อมูลผลการทดสอบ
+      
       fetchTestResults();
     } catch (err) {
       console.error(err);
@@ -287,7 +296,7 @@ const TestResultForm = ({ fetchTestResults }) => {
 
         {/* ทดสอบภาคปฏิบัติ */}
         <h3 className="text-lg font-semibold">ทดสอบภาคปฏิบัติ</h3>
-        <div className="flex items-center space-x-4">
+        <div className="flex flex-col space-y-2">
           <label className="cursor-pointer label">
             <span className="label-text">ผ่านการทดสอบภาคปฏิบัติ:</span>
             <input
